@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Searching For:<div id="spanel">Cats</div></h1>
+    <img src="#">
+    <input class="searchinput" type="text" placeholder="Search For Something!">
+    <button class="newbutton">Search!</button>
+
+
+
+    <script>
+        const img = document.querySelector('img');
+        fetch('https://api.giphy.com/v1/gifs/translate?api_key=cjOeV532M9BoRQxTafLZcwawTD77yD33&s=cat', {mode: 'cors'})
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(response) {
+            img.src = response.data.images.original.url
+        });
+
+        const submitButton = document.querySelector('.newbutton')
+        
+
+        submitButton.addEventListener('click', () => {
+
+            const input = document.querySelector('.searchinput').value
+            const titleSearch = document.getElementById('spanel')
+            titleSearch.textContent = `${input}`
+
+
+            if (input != "") {
+                const newimg = document.querySelector('img');
+                fetch(`https://api.giphy.com/v1/gifs/translate?api_key=cjOeV532M9BoRQxTafLZcwawTD77yD33&s=${input}`, {mode: 'cors'})
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    newimg.src = response.data.images.original.url
+                })
+                .catch(function(response) {
+                    alert("Seems like something went wrong, oopsies")
+                });
+            } else {
+                const newimg = document.querySelector('img');
+                fetch('https://api.giphy.com/v1/gifs/translate?api_key=cjOeV532M9BoRQxTafLZcwawTD77yD33&s=cat', {mode: 'cors'})
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    newimg.src = response.data.images.original.url
+                })
+                .catch(function(response) {
+                    alert("Seems like something went wrong, oopsies")
+                });
+            }
+        })
+    
+    
+
+    </script>
+    
+
+</body>
+</html>
